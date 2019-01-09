@@ -357,7 +357,7 @@ void Task_MOTOR(void *pdata)
 					if(DisAngle > miniturn)
 					{
 							MovePositionSet(cha_state.wheelst.CmdMotorAngle);//轮子转动角度。
-                                                        if(errcount++>60)errcount=250;//3秒内没到达目标点，则判定异常。
+                                                        if(DisAngle>50) {if(errcount++>60)errcount=250;}//3秒内没接近目标点5度以内，则判定异常。
 					}
 					else
 					{
