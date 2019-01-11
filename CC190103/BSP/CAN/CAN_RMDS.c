@@ -100,7 +100,7 @@ data[3]=(u8)((CANDD.cspeed*CANDD.MotoFlagForward)&0xff);
 
 void moto_control(void)
 {
-  static u8 lscbcount=0;//À­Éş´¥±ßÀÛ¼ÆÂË²¨¡£
+  static u8 lscbcount=0,stopcount=0;//À­Éş´¥±ßÀÛ¼ÆÂË²¨¡£
   static s16 oldspeed=0;
 s16 speed=0,cpwm=0,mp3vol=0;
 static u8 count,stoplock=0;//Ëø±§Õ¢ÑÓÊ±Æ÷,¼±Í£Ëø¡£
@@ -134,8 +134,9 @@ if(abs(oldspeed-speed)>30){if(oldspeed<speed){if(oldspeed>0)oldspeed+=speedinc;e
       else oldspeed=speed;
      
 
-  if(STOP)
-  {cpwm=0;baoz=0;stoplock=0x88;}else {if(stoplock==0x88)stoplock=0x11;}
+if(STOP)stopcount++; else stopcount=0;
+if(stopcount>5)
+  {stopcount=250;cpwm=0;baoz=0;stoplock=0x88;}else {if(stoplock==0x88)stoplock=0x11;}
   //¼±Í£°´Å¥£»¿ªËø   0x55:ÉÏËø  0x88:°ë¿ª   0x11:½â³ıÖĞ   0x00£º×ÔÓÉ
 if(!LSCB)lscbcount++;else lscbcount=0;
   if((lscbcount>3)&&(stoplock==0)&&(oldspeed))stoplock=0x55;                              //ÉÏËø

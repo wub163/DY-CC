@@ -51,7 +51,7 @@ void State_Check(void)
 ***********************************************************************/
 void Task_LED(void *pdata)
 {		 
-u16 count=0,countcd=0;
+u16 count=0;
 
     while(1)
 	{
@@ -132,7 +132,8 @@ void step_seekzero(void * cha_state)
 ********************************************************************/
 void step_auto(void * cha_state)
 {
-    AC_STA *p = (AC_STA *)cha_state;
+static u8 stopcount=0;
+  AC_STA *p = (AC_STA *)cha_state;
     p->stateid = 1;
 
 		if(p->first == 1)//
@@ -150,8 +151,9 @@ void step_auto(void * cha_state)
 		{
 
 		
-				if(scan_data.stop == IN_ON )
-				{
+				if(scan_data.stop == IN_ON )stopcount++;else stopcount=0;
+                                   if(stopcount>10)
+				{stopcount=250;
 			p->first = 1;
       			p->next = s_stop;
 				}

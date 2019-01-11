@@ -12,7 +12,7 @@ ByteLimit=50
 stlinkserialNo=1C070380
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-1411386353
+Checksum=9086828
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -40,7 +40,8 @@ ITMportsTermIO=0
 ITMportsLogFile=0
 ITMlogFile=$PROJ_DIR$\ITM.log
 [struct_types]
-Fmt0=recvst-CmdMsgVel	3	0
+Fmt0=AC_STA-CAR_STATE	1	0
+Fmt1=recvst-CmdMsgVel	3	0
 [Trace2]
 Enabled=0
 ShowSource=0
